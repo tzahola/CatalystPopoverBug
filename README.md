@@ -1,7 +1,7 @@
 # CatalystPopoverBug
 Demonstration project for a bug in iOS 14.2 and macOS 11.0.1 when using UIKit popovers via Catalyst.
 
-This bug was reported to Apple as `FB8909496`.
+This bug was reported to Apple via feedbackassistant.apple.com as `FB8909496`.
 
 # Usage
 
