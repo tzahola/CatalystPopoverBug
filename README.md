@@ -1,5 +1,5 @@
 # CatalystPopoverBug
-Demonstration project for a bug in macOS 11.0.1 when using UIKit popovers via Catalyst
+Demonstration project for a bug in iOS 14.2 and macOS 11.0.1 when using UIKit popovers via Catalyst
 
 # Usage
 
