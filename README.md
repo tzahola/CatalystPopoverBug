@@ -17,7 +17,7 @@ This is how the **expected** behaviour looks like:
 
 ![correct behaviour](correct%20behaviour.gif)
 
-#### Bug #1 (macOS): UIKit is messing with the child VCs view even after UIViewController.dismiss(animated:completion:) had finished
+#### Bug #1 (macOS): UIKit is messing with the child VC's view even after UIViewController.dismiss(animated:completion:) had finished
 
 Let's remove the [async dispatch from here](CatalystPopoverBug/ViewController.swift#L73):
 ```
@@ -37,12 +37,12 @@ like this:
 Now if we launch the app, and try to move the child VC from the popover to the root VC, it simply disappears:
 ![child disappears](child%20disappears.gif)
 
-We can observe what's happening by overriding `didMoveToWindow()` in the child VCs root view, [and placing a breakpoint there](CatalystPopoverBug/ViewController.swift#L33):
+We can observe what's happening by overriding `didMoveToWindow()` in the child VC's root view, [and placing a breakpoint there](CatalystPopoverBug/ViewController.swift#L33):
 
 ![stacktraces](stacktraces.png)
 
 1. When the popover is dismissed, the view is removed from the popover's window
-1. Then from `UIViewController.dismiss(animated:completion:)`'s completion callback, we add the view to the root VCs view. **At this point, UIKit should have finished the dismiss transition, and the view controller should be ours to mess with.**
+1. Then from `UIViewController.dismiss(animated:completion:)`'s completion callback, we add the view to the root VC's view. **At this point, UIKit should have finished the dismiss transition, and the view controller should be ours to mess with.**
 1. But then some async UIKit mechanism removes the view **again**. Based on the stack trace, this is coming from the popover window's belated `dealloc`.
 
 The same code (i.e. without the async dispatch) works fine on iOS, so the bug is specific macOS Catalyst.
